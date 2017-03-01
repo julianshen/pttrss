@@ -1,0 +1,7 @@
+{
+  "name": "pttrss",
+  "description": "This is for serving ptt content in RSS.",
+  "repository": "https://github.com/julianshen/pttrss/blob/master/README.md",
+  "logo": "https://raw.githubusercontent.com/golang-samples/gopher-vector/master/gopher-side_color.png",
+  "keywords": ["ptt", "bbs", "golang"]
+}

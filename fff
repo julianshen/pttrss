@@ -1,0 +1,12 @@
+HTTP/1.1 200 OK
+Date: Wed, 01 Mar 2017 07:02:44 GMT
+Content-Type: application/rss+xml
+Transfer-Encoding: chunked
+Connection: keep-alive
+Set-Cookie: __cfduid=df871af8ca28c6b5770976a49a511baac1488351763; expires=Thu, 01-Mar-18 07:02:43 GMT; path=/; domain=.cowbay.wtf; HttpOnly
+Cache-Control: max-age=0x401320
+Etag: r2BLdWu0qwmiy8gjwOeFxlJ8H34
+Via: 1.1 vegur
+Server: cloudflare-nginx
+CF-RAY: 338a409bf48f4542-TPE
+

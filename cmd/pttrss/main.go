@@ -50,14 +50,15 @@ func main() {
 		board := c.Param("board")
 		var rss string
 		var e error
-		var cacheItem CacheItem
+		var cacheItem = &CacheItem{}
 
 		ifNonMatchStr := c.Request.Header.Get(IfNoneMatch)
 
 		mutex.Lock()
 		if val, existed := cache.Get(board); existed {
 			log.Println("cached")
-			if cacheItem, ok := val.(*CacheItem); ok {
+			var ok bool
+			if cacheItem, ok = val.(*CacheItem); ok {
 				if ifNonMatchStr != "" && ifNonMatchStr == cacheItem.etag {
 					c.String(304, "Not modified")
 					return
@@ -65,13 +66,12 @@ func main() {
 			}
 		} else {
 			rss, e = pttrss.GetRss(board)
-			log.Println("no cache")
 
 			if e == nil {
 				etag := pttrss.Etag(rss)
 				cacheItem.rss = rss
 				cacheItem.etag = etag
-				cache.Set(board, &cacheItem, iTTL*time.Minute)
+				cache.Set(board, cacheItem, iTTL*time.Minute)
 			}
 		}
 		mutex.Unlock()

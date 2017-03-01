@@ -176,14 +176,13 @@ func GetArticlesGo(board string, page int) (<-chan *Article, chan bool) {
 
 		if err != nil {
 			log.Println(err)
-			close(ch)
+			return
 		}
 
 		i := articles.Iterator()
 		for {
 			if article, e := i.Next(); e != nil {
 				log.Println(err)
-				close(ch)
 				break
 			} else {
 				select {
@@ -284,15 +283,15 @@ func (aList *ArticleList) Iterator() Iterator {
 	index := 0
 
 	return func() (*Article, error) {
+		if aList == nil || aList.Articles == nil || len(aList.Articles) == 0 {
+			return nil, ERROR_EMPTY_LIST
+		}
+
 		if index >= len(aList.Articles) && index != 0 {
 			if _, err := aList.GetFromPreviousPage(); err != nil {
 				return nil, err
 			}
 			index = 0
-		}
-
-		if aList.Articles == nil || len(aList.Articles) == 0 {
-			return nil, ERROR_EMPTY_LIST
 		}
 
 		article := aList.Articles[index]
